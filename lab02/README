@@ -1,0 +1,26 @@
+- Jonathan Ogden (joogden)
+
+- Compile using make
+
+- uniq.c should not have been handed in
+
+- 1)  char C = 'C';
+      char *cp = &C;
+
+      char words[] = "some words"
+      char *ap = words;
+
+      int num = 1;
+      int *p = &num;
+      int **pp = &p;
+
+  2)  Yes you can. its void *point = &point;
+
+  3) the problem is that the loop ends when it reches the address \0. this program will continu to loop pointing to the next point in memmory untell a segmentation falt happens.
+     to fix it the loop should be for(p=s: *p != '\0'; p++) this will have the loop continue intell it reads the null bite. 
+
+  4) (a) this is correct in that the variable holds the address to the fist element of the array, meaning that the variable name for an arry is a pointer.
+     
+     (b) this is incorrect in that an array is a data struckture that holds data in sequental spaces in memory.
+   
+  5) strerror returns the non 0 number if there is a problem so that numb needs to be able to change while strerror igets a messege t                                                                   

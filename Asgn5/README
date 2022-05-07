@@ -1,0 +1,7 @@
+- Jonathan Ogden (joogden)
+
+- just use the make file.
+
+- Having truble with a memory leak but only when using start_windowing()
+  hopefully I figure it out by tomarrow
+

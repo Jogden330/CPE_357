@@ -1,0 +1,6 @@
+- Jonathan Ogden (joogden)
+
+- just use the make file with all
+
+- Im getting a compiler warrning about snprintf saying that it isnt deffined but i included the .h file but IDK whats up with that.
+  it seems to be working just fine though. never mind I just used -anis. 

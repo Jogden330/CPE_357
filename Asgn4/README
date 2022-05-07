@@ -1,0 +1,6 @@
+- Jonathan Ogden (joogden)
+
+- just use the make file with all
+
+- This program is really far form complete, It dose not have the ability to properly traverse the file system. It can tar a file given the path but it won't tar all of its directories.
+  it can creat an archive from a tarfile but cant take the name of it and create the path down it simaller with the list table fuction.  

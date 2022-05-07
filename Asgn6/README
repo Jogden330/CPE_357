@@ -1,0 +1,6 @@
+- Jonathan Ogden (joogden)
+
+- just use the make file.
+
+- Has memory leaks and doesnt block signals but mostly works.
+

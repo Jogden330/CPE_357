@@ -1,0 +1,114 @@
+#!/bin/csh -f 
+
+if ( `hostname` == "aloha.home" || `hostname` == "lagniappe" ) then
+  set lib=/home/pnico/CalPoly/Class/cpe357/now/Asgn/Handin/lib/asgn1
+  set logprog=echo 
+  set longlines=/home/pnico/bin/longlines.pl
+else
+  set lib=/home/pn-cs357/lib/asgn1/
+  set logprog=/home/pn-cs357/bin/logit.asgn1
+  set longlines=/home/pn-cs357/bin/longlines.pl
+endif
+
+set testdir=$lib/Test/Inputs
+set asgn=Asgn1
+set exitstatus = 0
+set timeout = 5
+onintr bail
+
+echo "--------------------------------------------------"
+echo "Looking for detab.c (the expected source filename)."
+echo "--------------------------------------------------"
+
+if ( -f detab.c ) then
+  set src = detab.c
+else
+  echo ""
+  echo "***** detab.c not found. *****"
+  echo ""
+  set nonomatch
+  if ( *.c != '*.c' ) then
+    set src = ( *.c )
+    echo "Found $src.  Trying that instead."
+    echo ""
+  else
+    echo "No C source files found.  Remember, C source files"
+    echo "should have a .c extension (not .C or .cc which would"
+    echo "indicate C++."
+    echo ""
+    echo "If your file does have a .c extension, are you in the"
+    echo "right directory?"
+    echo ""
+    set exitstatus = -1
+  endif
+endif
+
+if ( $exitstatus == 0 ) then
+  echo ""
+  echo "--------------------------------"
+  echo "Checking for long lines (no program should have any lines > 80 chars)"
+  echo "--------------------------------"
+  echo ""
+  if ( ! { $longlines $src } ) then
+     set exitstatus=-3
+  else
+     echo "Line length ok."
+  endif
+  echo ""
+endif
+
+if ( $exitstatus == 0 ) then
+  echo ""
+  echo ""
+  echo "--------------------------------"
+  echo "Building the application (detab)"
+  echo "--------------------------------"
+  echo ""
+  echo ""
+
+  set cmd = ( gcc -ansi -pedantic -Wall -I. -o detab $src )
+  echo "$cmd" 
+  if ( ! { $cmd  } ) then
+    echo ""
+    echo "Unable to compile detab."
+    set exitstatus = -4
+  endif
+endif
+
+set which = 0
+
+if ( $exitstatus == 0 ) then
+  echo ""
+  echo ""
+  echo "--------------------------------"
+  echo "Running the application "
+  echo "--------------------------------"
+  echo ""
+  echo ""
+
+  if ( -x $lib/testdetab ) then
+    setenv LIB $lib
+    $lib/testdetab
+    set exitstatus=$status
+  else
+    echo "Can't find test script"
+    set exitstatus=100
+  endif
+endif
+
+if ( ! $exitstatus ) then
+  echo "Passed all tests."
+else
+  echo "FAILED."
+endif
+
+goto done
+
+bail:
+  echo "Interrupted."
+  set exitstatus=-5
+
+done:
+
+$logprog  $exitstatus $which
+exit $exitstatus 

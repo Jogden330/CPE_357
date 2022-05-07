@@ -1,0 +1,6 @@
+- Jonathan Ogden (joogden)
+
+- just use the make file
+
+- the program can take stdin and a file there isnt any usage message becase the lab 3 promp didnt ask for one
+  so hopfully that is ok, it also dosnt take in moltiple files just the one in argv[i]
